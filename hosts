@@ -1,0 +1,25 @@
+---
+
+[icinga_server]
+icinga_server1 ansible_ssh_host=192.168.43.72 ansible_user=root ansible_connection=ssh ansible_ssh_pass=default123
+
+#hostnames must diff {node1,ndo2 like}
+
+[clustera]
+node1  ansible_ssh_host=192.168.43.72 ansible_user=root ansible_connection=ssh ansible_ssh_pass=default123
+node1a  ansible_ssh_host=192.168.43.72 ansible_user=root ansible_connection=ssh ansible_ssh_pass=default123
+[clustera:vars]
+hostgroup_name=clustera
+
+[clusterb]
+node2  ansible_ssh_host=192.168.43.72 ansible_user=root ansible_connection=ssh ansible_ssh_pass=default123
+node2a  ansible_ssh_host=192.168.43.72 ansible_user=root ansible_connection=ssh ansible_ssh_pass=default123 
+[clusterb:vars]
+hostgroup_name=clusterb
+
+
+[clusterc]
+node3  ansible_ssh_host=192.168.43.72 ansible_user=root ansible_connection=ssh ansible_ssh_pass=default123 
+node3a  ansible_ssh_host=192.168.43.72 ansible_user=root ansible_connection=ssh ansible_ssh_pass=default123 
+[clusterc:vars]
+hostgroup_name=clusterc

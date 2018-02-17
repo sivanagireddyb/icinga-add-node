@@ -1,0 +1,55 @@
+---
+# tasks file for icinga
+
+- debug: var="node_type"
+  when: "'clustera' in hostvars[item]['group_names']"
+  with_items: "{{ groups['all'] }}"
+- debug: var="node_type"
+  when: "'clusterb' in hostvars[item]['group_names']"
+  with_items: "{{ groups['all'] }}"
+- debug: var="node_type"
+  when: "'clusterc' in hostvars[item]['group_names']"
+  with_items: "{{ groups['all'] }}"
+
+- debug: var="hostvars[item]['inventory_hostname']"
+  with_items: "{{ groups['all'] }}"
+  when: "'clustera' in hostvars[item]['group_names']"
+
+
+- debug: var="hostvars[item]['inventory_hostname']"
+  with_items: "{{ groups['all'] }}"
+  when: "'clusterb' in hostvars[item]['group_names']"
+
+- debug: var="hostvars[item]['inventory_hostname']"
+  with_items: "{{ groups['all'] }}"
+  when: "'clusterc' in hostvars[item]['group_names']"
+
+- name: Copy clustera conf
+  template: src=clustera.conf.j2
+            dest={{ icinga2_hosts_dir }}/{{ hostvars[item]['inventory_hostname'] }}.conf
+            owner=root
+            group=root
+            mode=0644
+  with_items: "{{ groups['all'] }}"
+#  when: "'icinga_server' not in hostvars[item]['group_names']"
+  when: "'clustera' in hostvars[item]['group_names']"
+
+   
+- name: Copy clusterb conf
+  template: src=clustera.conf.j2
+            dest={{ icinga2_hosts_dir }}/{{ hostvars[item]['inventory_hostname'] }}.conf
+            owner=root
+            group=root
+            mode=0644
+  with_items: "{{ groups['all'] }}"
+  when: "'clusterb' in hostvars[item]['group_names']"
+
+
+- name: Copy clusterc conf
+  template: src=clustera.conf.j2
+            dest={{ icinga2_hosts_dir }}/{{ hostvars[item]['inventory_hostname'] }}.conf
+            owner=root
+            group=root
+            mode=0644
+  with_items: "{{ groups['all'] }}"
+  when: "'clusterc' in hostvars[item]['group_names']"

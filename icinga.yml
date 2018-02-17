@@ -1,0 +1,11 @@
+---
+- hosts: all
+  gather_facts: true
+
+- hosts: icinga_server
+  gather_facts: true
+#  tasks: 
+#  - debug: var=hostvars[item]
+#    with_items: "{{ groups['all'] }}"
+  roles:
+  - icinga
